@@ -1,7 +1,7 @@
 import 'package:car_rental/core/constants/Colors.dart';
 import 'package:car_rental/features/cars/presetation/screens/CarInfo.dart';
 import 'package:flutter/material.dart';
-import 'package:car_rental/features/cars/data/car_model.dart';
+import 'package:car_rental/features/cars/data/models/car_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CarTile extends StatelessWidget { // بقى Stateless عشان البساطة

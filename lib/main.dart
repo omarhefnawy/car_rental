@@ -3,6 +3,8 @@ import 'package:car_rental/features/auth/data/auth_repo_impl/auth_repo_impl.dart
 import 'package:car_rental/features/auth/presentation/auth_bloc/auth_cubit.dart';
 import 'package:car_rental/features/auth/presentation/auth_bloc/auth_states.dart';
 import 'package:car_rental/features/auth/presentation/screens/login.dart';
+import 'package:car_rental/features/cars/domain/carRepo/carRepo.dart';
+import 'package:car_rental/features/cars/presetation/carBloc/carBloc.dart';
 import 'package:car_rental/features/onboarding/presentation/screens/onboarding.dart';
 import 'package:car_rental/core/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +15,7 @@ import 'package:nested/nested.dart';
 import 'core/service_locators/service_locator.dart';
 import 'features/auth/domain/authrepo/auth_repo.dart';
 import 'features/auth/presentation/screens/regester.dart';
+import 'features/cars/presetation/screens/addCar.dart';
 import 'features/home/presentation/screens/home.dart';
 import 'firebase_options.dart';
 
@@ -37,6 +40,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: <SingleChildWidget>[
        BlocProvider(create: (context) => AuthCubit(sl<AuthRepo>()),),
+        BlocProvider(create: (context) => CarCubit(sl<CarRepo>()),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -47,6 +51,7 @@ class MyApp extends StatelessWidget {
           "signUp": (context) => RegisterPage(),
           "onboard": (context) => OnboardingScreen(),
           "home": (context) => HomeScreen(),
+          "addCar": (context) => AddCar(),
         },
       ),
     );
