@@ -2,6 +2,7 @@ import 'package:car_rental/features/cars/data/models/car_model.dart';
 import 'package:car_rental/features/maps/presentation/screens/mapScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/Colors.dart';
 
@@ -124,23 +125,43 @@ class _CarInfoState extends State<CarInfo> {
                 SizedBox(width: 100,),
                 Expanded(
                   child: Container(
-                    height: 120,
+                    height: 140,
                     decoration: BoxDecoration(color: Color(0xffe8ebec),borderRadius: BorderRadius.circular(15)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Omar",
+                          "${widget.car.owner.name}",
                           style: TextStyle(
                             color: Color(0xff000000),
                             fontSize: 25,
                           ),
                         ),
                         TextButton(
-                            onPressed: () {
-                              },
+                            onPressed: () async {
+                              // إضافة رمز الدولة '20' لمصر
+                              final phoneNumber = "20${widget.car.owner.phone}"; // الرقم مع رمز الدولة
+
+                              final url = "https://wa.me/$phoneNumber"; // بناء الرابط مع الرقم الصحيح
+
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication); // فتح الواتساب
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Could not open WhatsApp")), // في حال حدوث خطأ
+                                );
+                              }
+                            },
+
                             child: Icon(FontAwesomeIcons.phone,size: 30,)),
+                        Text(
+                          "${widget.car.owner.phone}",
+                          style: TextStyle(
+                            color: Color(0xff000000),
+                            fontSize: 25,
+                          ),
+                        ),
                         SizedBox(height: 20,),
                       ],
                     ),

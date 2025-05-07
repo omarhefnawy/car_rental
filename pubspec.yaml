@@ -51,6 +51,7 @@ dependencies:
   place_picker_google: ^0.0.16
   image_picker: ^1.1.2
   image: ^4.5.4
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
