@@ -146,7 +146,7 @@ class _AddCarState extends State<AddCar> {
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context); // إغلاق الـ dialog
-                    Navigator.pop(context); // إغلاق الشاشة
+                    Navigator.pop(context,true); // إغلاق الشاشة
                   },
                   child: Text("No"),
                 ),

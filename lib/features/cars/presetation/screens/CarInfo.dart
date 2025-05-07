@@ -1,4 +1,5 @@
 import 'package:car_rental/features/cars/data/models/car_model.dart';
+import 'package:car_rental/features/maps/presentation/screens/mapScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -28,10 +29,7 @@ class _CarInfoState extends State<CarInfo> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: ColorsConst.Kcbg,
-                image: DecorationImage(
-                  image: AssetImage("assets/cars.png"),
-                  scale: .5,
-                ),
+                image:DecorationImage(image: NetworkImage(widget.car.img,scale: .5)) ,
               ),
             ),
             SizedBox(height: 4),
@@ -155,6 +153,7 @@ class _CarInfoState extends State<CarInfo> {
               child: GestureDetector(
                 onTap: () {
                   // اضف الوظيفة هنا لو حابب
+                 Navigator.push(context, MaterialPageRoute(builder:(context) =>  MapScreen(car: widget.car,)));
                 },
                 child: Container(
                   //width: double.infinity,

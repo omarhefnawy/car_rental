@@ -1,13 +1,10 @@
 import 'package:car_rental/core/network/local/cache_helper.dart';
-import 'package:car_rental/features/auth/data/auth_repo_impl/auth_repo_impl.dart';
 import 'package:car_rental/features/auth/presentation/auth_bloc/auth_cubit.dart';
-import 'package:car_rental/features/auth/presentation/auth_bloc/auth_states.dart';
 import 'package:car_rental/features/auth/presentation/screens/login.dart';
 import 'package:car_rental/features/cars/domain/carRepo/carRepo.dart';
 import 'package:car_rental/features/cars/presetation/carBloc/carBloc.dart';
 import 'package:car_rental/features/onboarding/presentation/screens/onboarding.dart';
 import 'package:car_rental/core/splash.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,4 +54,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 

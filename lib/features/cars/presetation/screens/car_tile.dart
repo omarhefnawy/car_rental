@@ -26,11 +26,20 @@ class CarTile extends StatelessWidget { // بقى Stateless عشان البسا�
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/cars.png",
-              height: 170,
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.network(
+                car.img,
+                height: 170,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(child: CircularProgressIndicator());
+                },
+              ),
             ),
+
             const SizedBox(height: 8),
             Text(
               car.name,
@@ -48,18 +57,7 @@ class CarTile extends StatelessWidget { // بقى Stateless عشان البسا�
               ),
             ),
             const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    FontAwesomeIcons.heart,
-                    color: Color(0xff2B4C59),
-                    size: 30,
-                  ),
-                ),
-                IconButton(
+              IconButton(
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CarInfo(car: car),) );
                   },
@@ -69,8 +67,7 @@ class CarTile extends StatelessWidget { // بقى Stateless عشان البسا�
                     size: 30,
                   ),
                 ),
-              ],
-            ),
+
           ],
         ),
       ),
