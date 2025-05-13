@@ -1,3 +1,4 @@
+import 'package:car_rental/core/payment_service/payment_service.dart';
 import 'package:car_rental/features/cars/data/models/car_model.dart';
 import 'package:car_rental/features/maps/presentation/screens/mapScreen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,16 @@ class CarInfo extends StatefulWidget {
 }
 
 class _CarInfoState extends State<CarInfo> {
+  Future<void> _pay() async{
+    PaymentIntegration().getPaymentKey(amount: widget.car.pricePerDay.toInt(), currency: "EGP").then((String paymentKey){
+      launchUrl(
+          Uri.parse("https://accept.paymob.com/api/acceptance/iframes/921059?payment_token=${paymentKey}")
+      );
+    }).catchError((onError){
+      throw Exception("Error getting the iframe from paymob${onError.toString()}");
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +56,7 @@ class _CarInfoState extends State<CarInfo> {
                   ),
                 ),
                 Text(
-                  "\$${widget.car.pricePerDay}/day",
+                  "EGP ${widget.car.pricePerDay}/day",
                   style: const TextStyle(
                     fontSize: 18,
                     color: Color(0xff384147),
@@ -125,7 +136,7 @@ class _CarInfoState extends State<CarInfo> {
                 SizedBox(width: 100,),
                 Expanded(
                   child: Container(
-                    height: 140,
+                    height: 145,
                     decoration: BoxDecoration(color: Color(0xffe8ebec),borderRadius: BorderRadius.circular(15)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -155,21 +166,18 @@ class _CarInfoState extends State<CarInfo> {
                             },
 
                             child: Icon(FontAwesomeIcons.phone,size: 30,)),
-                        Text(
-                          "${widget.car.owner.phone}",
-                          style: TextStyle(
-                            color: Color(0xff000000),
-                            fontSize: 25,
-                          ),
-                        ),
-                        SizedBox(height: 20,),
+                        IconButton(
+                            onPressed: () async {
+                                await  _pay();
+                        }, icon: Icon(FontAwesomeIcons.moneyCheck,size: 30,color: Colors.deepPurple,)),
+                        SizedBox(height: 10,),
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 10,),
             Expanded(
               child: GestureDetector(
                 onTap: () {
@@ -192,4 +200,5 @@ class _CarInfoState extends State<CarInfo> {
       ),
     );
   }
+ 
 }

@@ -5,7 +5,7 @@ class Cars {
   final double pricePerDay;
   final int speed;
   final String transition;
-  final String img; // 👈 رابط أو اسم الصورة
+  final String img;
   final UserData owner;
 
   Cars({
